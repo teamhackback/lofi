@@ -18,6 +18,8 @@
       <div id="superLike" @click="superLike">
         <md-icon>star</md-icon>
       </div>
+
+      {{ unseenCardsReversed.length }}
     </div>
   </div>
 </template>
@@ -84,8 +86,8 @@ export default {
     const Direction = Swing.Direction
     this.stack = Swing.Stack({
       allowedDirections: [Direction.LEFT, Direction.RIGHT, Direction.UP],
-      minThrowOutDistance: 450,
-      maxThrowOutDistance: 500,
+      minThrowOutDistance: 950,
+      maxThrowOutDistance: 1000,
       maxRotation: 20,
       throwOutConfidence: (xOffset, yOffset, element) => {
         const xConfidence = Math.min(Math.abs(xOffset) / element.offsetWidth, 1);
@@ -93,7 +95,7 @@ export default {
 
         const confidence = Math.max(xConfidence, yConfidence);
         console.log(confidence);
-        if (confidence > 0.5)
+        if (confidence > 0.2)
           return 1
       }
     })
@@ -104,6 +106,7 @@ export default {
       e.target.classList.remove('in-deck')
       const card = self.currentCard
       this.stack.getCard(e.target).destroy()
+      e.target.classList = 'in-deck2'
       if (e.throwDirection === Direction.LEFT) {
         this.pass(card)
       } else if (event.throwDirection === Direction.RIGHT) {
@@ -116,8 +119,8 @@ export default {
     this.update()
   },
   updated () {
-    this.destroyAllCards()
-    this.update()
+    //this.destroyAllCards()
+    //this.update()
   },
   // ?
   beforeDestroy () {
