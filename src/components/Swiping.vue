@@ -24,6 +24,7 @@ export default {
   computed: {
     ...mapGetters([
       'unseenCardsReversed',
+      'allCardsProcessed',
       'currentCard'
     ])
   },
@@ -54,7 +55,7 @@ export default {
         }
         const swingCard = this.stack.createCard(targetElement, false)
         this.swingCards.push(swingCard)
-        targetElement.classList = "in-deck";
+        targetElement.classList = 'in-deck'
       })
     },
     destroyAllCards () {
@@ -85,12 +86,14 @@ export default {
       } else if (event.throwDirection === Direction.UP) {
         this.superLike(card)
       }
+      if (this.allCardsProcessed) {
+        this.$router.push('locations')
+      }
     })
     this.swingCards = []
     this.update()
   },
   updated () {
-    console.log("update");
     this.destroyAllCards()
     this.update()
   },

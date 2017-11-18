@@ -8,28 +8,29 @@ const state = {
       src: '/static/categories/beach.jpg',
       seen: false
     },
-    {
-      id: 1,
-      src: '/static/categories/snow.jpg',
-      seen: false
-    },
-    {
-      id: 2,
-      src: '/static/categories/culture.jpg',
-      seen: false
-    },
-    {
-      id: 3,
-      src: '/static/categories/urban.jpg',
-      seen: false
-    }
+    //{
+      //id: 1,
+      //src: '/static/categories/snow.jpg',
+      //seen: false
+    //},
+    //{
+      //id: 2,
+      //src: '/static/categories/culture.jpg',
+      //seen: false
+    //},
+    //{
+      //id: 3,
+      //src: '/static/categories/urban.jpg',
+      //seen: false
+    //}
   ]
 }
 const getters = {
   getCardById: state => id => state.cards.filter(card => card.id === id),
   unseenCards: state => state.cards.filter(card => !card.seen),
   unseenCardsReversed: (state, getters) => getters.unseenCards.slice().reverse(),
-  currentCard: (state, getters) => getters.unseenCards[0]
+  currentCard: (state, getters) => getters.unseenCards[0],
+  allCardsProcessed: (state, getters) => getters.unseenCards.length === 0
 }
 const mutations = {
   pass (state, card) {
@@ -52,7 +53,7 @@ const mutations = {
       }
     }
     if (lastCardPos > 0) {
-      lastCardPos--;
+      lastCardPos--
     }
     state.cards[lastCardPos].seen = false
   }
