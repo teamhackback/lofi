@@ -109,9 +109,9 @@ export default {
       e.target.classList = 'in-deck2'
       if (e.throwDirection === Direction.LEFT) {
         this.pass(card)
-      } else if (event.throwDirection === Direction.RIGHT) {
+      } else if (e.throwDirection === Direction.RIGHT) {
         this.like(card)
-      } else if (event.throwDirection === Direction.UP) {
+      } else if (e.throwDirection === Direction.UP) {
         this.superLike(card)
       }
     })
@@ -119,8 +119,8 @@ export default {
     this.update()
   },
   updated () {
-    //this.destroyAllCards()
-    //this.update()
+    this.destroyAllCards()
+    this.update()
   },
   // ?
   beforeDestroy () {
