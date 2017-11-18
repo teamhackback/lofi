@@ -31,15 +31,15 @@ const state = {
     {
       title: 'San Francisco',
       text: 'West coast mah dude',
-      picture: './static/sf.jpg'
+      picture: './static/locations/sf.jpg'
     }, {
       title: 'New York',
       text: 'East coast represent',
-      picture: './static/ny.jpg'
+      picture: './static/locations/ny.jpg'
     }, {
       title: 'Los Angeles',
       text: 'City of Angels',
-      picture: './static/la.jpg'
+      picture: './static/locations/la.jpg'
     }
   ],
   selectedLocation: {
@@ -47,7 +47,7 @@ const state = {
     text: 'City of Angels',
     latitude: 34.052314,
     longitude: -118.4679994,
-    picture: './static/la.jpg'
+    picture: './static/locations/la.jpg'
   },
   hotels: []
 }
