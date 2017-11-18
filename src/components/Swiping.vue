@@ -18,8 +18,6 @@
       <div id="superLike" @click="superLike">
         <md-icon>star</md-icon>
       </div>
-
-      {{ unseenCardsReversed.length }}
     </div>
   </div>
 </template>
