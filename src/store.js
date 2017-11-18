@@ -8,21 +8,21 @@ const state = {
       src: '/static/categories/beach.jpg',
       seen: false
     },
-    //{
-      //id: 1,
-      //src: '/static/categories/snow.jpg',
-      //seen: false
-    //},
-    //{
-      //id: 2,
-      //src: '/static/categories/culture.jpg',
-      //seen: false
-    //},
-    //{
-      //id: 3,
-      //src: '/static/categories/urban.jpg',
-      //seen: false
-    //}
+    {
+      id: 1,
+      src: '/static/categories/snow.jpg',
+      seen: false
+    },
+    {
+      id: 2,
+      src: '/static/categories/culture.jpg',
+      seen: false
+    },
+    {
+      id: 3,
+      src: '/static/categories/urban.jpg',
+      seen: false
+    }
   ]
 }
 const getters = {
@@ -56,6 +56,9 @@ const mutations = {
       lastCardPos--
     }
     state.cards[lastCardPos].seen = false
+  },
+  resetAllCards (state) {
+    state.cards.forEach(function (card) { card.seen = false })
   }
 }
 const actions = {

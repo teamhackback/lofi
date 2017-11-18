@@ -5,10 +5,20 @@
         <img v-bind:src="card.src" />
       </li>
     </ul>
-    <button @click="pass">Pass</button>
-    <button @click="like">Like</button>
-    <button @click="back">Back</button>
-    <button @click="superLike">SuperLike</button>
+    <div id="icons">
+      <div id="back" @click="back">
+        <md-icon>refresh</md-icon>
+      </div>
+      <div id="pass" @click="pass">
+        <md-icon>close</md-icon>
+      </div>
+      <div id="like" @click="like">
+        <md-icon>thumb_up</md-icon>
+      </div>
+      <div id="superLike" @click="superLike">
+        <md-icon>favorite</md-icon>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -31,15 +41,15 @@ export default {
   methods: {
     pass () {
       this.$store.commit('pass', this.currentCard)
+      this.checkEnd()
     },
     like () {
       this.$store.commit('like', this.currentCard)
+      this.checkEnd()
     },
     superLike () {
       this.$store.commit('superLike', this.currentCard)
-    },
-    nextImage () {
-
+      this.checkEnd()
     },
     back () {
       this.$store.commit('makePreviousCardUnseen')
@@ -61,6 +71,11 @@ export default {
     destroyAllCards () {
       this.swingCards.forEach(card => card.destroy())
       this.swingCards = []
+    },
+    checkEnd() {
+      if (this.allCardsProcessed) {
+        this.$router.push('locations')
+      }
     }
   },
   mounted () {
@@ -85,9 +100,6 @@ export default {
         this.like(card)
       } else if (event.throwDirection === Direction.UP) {
         this.superLike(card)
-      }
-      if (this.allCardsProcessed) {
-        this.$router.push('locations')
       }
     })
     this.swingCards = []
@@ -144,5 +156,42 @@ img {
 #viewport li.in-deck:nth-child(2) {
     top: 4px; transform: translate(-4px, -2px) rotate(-1deg);
 }
-
+#icons {
+  margin: 0 auto;
+}
+#like {
+  color: #4dcc92;
+}
+#pass {
+  color: #fc696c;
+}
+#superLike {
+  color: #2db2c8;
+}
+#back {
+  color: #d1d1d1;
+}
+.md-icon {
+}
+#back .md-icon, #superLike .md-icon {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  font-size: 30px!important;
+  display: inline-block;
+}
+#pass .md-icon, #like .md-icon{
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  font-size: 50px!important;
+}
+#icons div {
+  display: inline-block;
+  margin: 1%;
+  border-radius: 50%;
+  border: 6px solid #e7e7e7;
+  box-shadow: 0 0 10px rgba(0,0,0,.2), 1px 1px 1px rgba(0,0,0,.2);
+  padding: 10px;
+}
 </style>
