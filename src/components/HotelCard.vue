@@ -1,5 +1,5 @@
 <template>
-  <a>
+  <a :href="link">
     <md-card>
       <md-card-media-cover md-solid>
         <md-card-media md-ratio="16:9">
@@ -27,6 +27,11 @@
 
   Vue.use(VueMaterial)
 
+  var generateLink = function (cityId, hotelId, startDate, endDate) {
+    return `https://hotel.check24.de/deutschland/hackatum-${cityId}/hackatum-${hotelId}/${startDate}/${endDate}/%5BA%7CA%5D/hotel.html`
+  }
+
+
   export default {
 
     components: {
@@ -34,10 +39,17 @@
       MdCardMediaCover,
       MdCardArea
     },
-    props: ['hotel'],
+    props: ['hotel', 'startDate', 'endDate'],
     name: 'HotelCard',
     data () {
-      return {}
+      return {
+          link: this.getCheck24Link()
+      }
+    },
+    methods: {
+      getCheck24Link: function () {
+        return generateLink(this.hotel.city_id, this.hotel.hotel_id, this.startDate, this.endDate)
+      }
     }
 
   }

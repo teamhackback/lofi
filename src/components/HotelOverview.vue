@@ -66,6 +66,8 @@
       <hotel-card
         v-for="hotel in getHotels"
         v-bind:hotel="hotel"
+        v-bind:startDate="startDate"
+        v-bind:endDate="endDate"
         v-bind:key="hotel.id">
       </hotel-card>
     </v-container>
@@ -80,10 +82,6 @@
 
   Vue.use(Vuetify)
   var moment = require('moment');
-
-  var generateLink = function (cityId, hotelId, startDate, endDate) {
-    return `https://hotel.check24.de/deutschland/hackatum-${cityId}/hackatum-${hotelId}/${startDate}/${endDate}/%5BA%7CA%5D/hotel.html`
-  }
 
 
   export default {
@@ -107,14 +105,27 @@
         this.$store.dispatch('postCheck24Api', {latitude, longitude, startDate: this.startDate, endDate: this.endDate})
       }
     },
-    data () {
+    watch: {
+      'startDate': function () {
+        this.updateHotelResults()
+      },
+      'endDate': function () {
+        this.updateHotelResults()
+      },
+      'numPersons': function () {
+        this.updateHotelResults()
+      },
+    },
+    data()
+    {
       return {
         startDate: moment().format('YYYY-MM-DD'),
         endDate: moment().add(1, 'days').format('YYYY-MM-DD'),
         numPersons: 2,
         modal: false,
       }
-    },
+    }
+    ,
   }
 </script>
 <style scoped>
