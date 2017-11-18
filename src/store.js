@@ -56,7 +56,8 @@ const getters = {
   unseenCards: state => state.cards.filter(card => !card.seen),
   unseenCardsReversed: (state, getters) => getters.unseenCards.slice().reverse(),
   currentCard: (state, getters) => getters.unseenCards[0],
-  getHotels: state => state.hotels
+  getHotels: state => state.hotels,
+  allCardsProcessed: (state, getters) => getters.unseenCards.length === 0
 }
 const mutations = {
   pass (state, card) {
@@ -79,13 +80,18 @@ const mutations = {
       }
     }
     if (lastCardPos > 0) {
-      lastCardPos--;
+      lastCardPos--
     }
     state.cards[lastCardPos].seen = false
   },
   updateHotels(state, hotels){
     console.log("called updateHotels with ", hotels)
     state.hotels = hotels
+  },
+  resetAllCards (state) {
+    state.cards.forEach(function (card) {
+      card.seen = false
+    })
   }
 }
 

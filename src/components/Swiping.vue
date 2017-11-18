@@ -5,10 +5,20 @@
         <img v-bind:src="card.src" />
       </li>
     </ul>
-    <button @click="pass">Pass</button>
-    <button @click="like">Like</button>
-    <button @click="back">Back</button>
-    <button @click="superLike">SuperLike</button>
+    <div id="icons">
+      <div id="back" @click="back">
+        <md-icon>refresh</md-icon>
+      </div>
+      <div id="pass" @click="pass">
+        <md-icon>close</md-icon>
+      </div>
+      <div id="like" @click="like">
+        <md-icon>favorites</md-icon>
+      </div>
+      <div id="superLike" @click="superLike">
+        <md-icon>star</md-icon>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -24,21 +34,22 @@ export default {
   computed: {
     ...mapGetters([
       'unseenCardsReversed',
+      'allCardsProcessed',
       'currentCard'
     ])
   },
   methods: {
     pass () {
       this.$store.commit('pass', this.currentCard)
+      this.checkEnd()
     },
     like () {
       this.$store.commit('like', this.currentCard)
+      this.checkEnd()
     },
     superLike () {
       this.$store.commit('superLike', this.currentCard)
-    },
-    nextImage () {
-
+      this.checkEnd()
     },
     back () {
       this.$store.commit('makePreviousCardUnseen')
@@ -54,12 +65,17 @@ export default {
         }
         const swingCard = this.stack.createCard(targetElement, false)
         this.swingCards.push(swingCard)
-        targetElement.classList = "in-deck";
+        targetElement.classList = 'in-deck'
       })
     },
     destroyAllCards () {
       this.swingCards.forEach(card => card.destroy())
       this.swingCards = []
+    },
+    checkEnd() {
+      if (this.allCardsProcessed) {
+        this.$router.push('locations')
+      }
     }
   },
   mounted () {
@@ -90,7 +106,6 @@ export default {
     this.update()
   },
   updated () {
-    console.log("update");
     this.destroyAllCards()
     this.update()
   },
@@ -141,5 +156,47 @@ img {
 #viewport li.in-deck:nth-child(2) {
     top: 4px; transform: translate(-4px, -2px) rotate(-1deg);
 }
-
+#icons {
+  margin: 0 auto;
+}
+#like {
+  color: #4dcc92;
+}
+#pass {
+  color: #fc696c;
+}
+#superLike {
+  color: #2db2c8;
+}
+#back {
+  color: #d1d1d1;
+}
+.md-icon {
+}
+#back .md-icon, #superLike .md-icon {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  font-size: 30px!important;
+  display: inline-block;
+}
+#pass .md-icon, #like .md-icon{
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  font-size: 50px!important;
+}
+#icons #back, #icons #superLike{
+  margin: -2%;
+}
+#icons #pass, #icons #like{
+}
+#icons div {
+  display: inline-flex;
+  margin: -1%;
+  border-radius: 50%;
+  border: 8px solid #e7e7e7;
+  padding: 10px;
+  vertical-align: top;
+}
 </style>
