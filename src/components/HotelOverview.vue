@@ -64,7 +64,7 @@
         </v-text-field>
       </v-flex>
       <hotel-card
-        v-for="hotel in hotelResults"
+        v-for="hotel in getHotels"
         v-bind:hotel="hotel"
         v-bind:key="hotel.id">
       </hotel-card>
@@ -76,41 +76,43 @@
   import 'vue-material/dist/vue-material.css'
   import Vuetify from 'vuetify'
   import HotelCard from './HotelCard'
+  import {mapActions, mapGetters} from "vuex";
 
   Vue.use(Vuetify)
+  var moment = require('moment');
 
   var generateLink = function (cityId, hotelId, startDate, endDate) {
-    return ''
+    return `https://hotel.check24.de/deutschland/hackatum-${cityId}/hackatum-${hotelId}/${startDate}/${endDate}/%5BA%7CA%5D/hotel.html`
   }
 
 
   export default {
+
+    computed: {
+      ...mapGetters([
+        'getHotels'
+      ])
+    },
     components: {HotelCard},
     name: 'HotelOverview',
-    baseLink: `https://hotel.check24.de/deutschland/a-37446/a-9523103/2017-12-18/2017-12-20/%5BA%7CA%5D/hotel.html`,
+    created() {
+      this.updateHotelResults();
+    },
+    methods: {
+      updateHotelResults: function () {
+        console.log("updateHotelResults called")
+        let latitude = this.$store.state.selectedLocation.latitude;
+        let longitude = this.$store.state.selectedLocation.longitude;
+        console.log(this)
+        this.$store.dispatch('postCheck24Api', {latitude, longitude, startDate: this.startDate, endDate: this.endDate})
+      }
+    },
     data () {
       return {
-        startDate: new Date().toISOString(),
-        endDate: new Date().toISOString(),
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().add(1, 'days').format('YYYY-MM-DD'),
         numPersons: 2,
         modal: false,
-        hotelResults: [{
-          title: 'Marriot Munich',
-          text: 'Marriot Description',
-          picture: './static/sf.jpg',
-          link2: generateLink('a', 'b', 'c', 'd'),
-          link: 'https://hotel.check24.de/Deutschland/M%C3%BCnchen-37463/Hilton%20Munich%20Park-9055430/2017-11-18/2017-11-19/%5BA%7CA%5D/hotel.html?reference_distance_max=20&map=no&sort_by=relevance_desc&hotel_name_filter=no'
-        }, {
-          title: 'Hilton Munich',
-          text: 'Hilton Description',
-          picture: './static/sf.jpg',
-          link: 'https://hotel.check24.de/Deutschland/M%C3%BCnchen-37463/Pullman%20Munich-9458279/2017-11-18/2017-11-19/%5BA%7CA%5D/hotel.html?reference_distance_max=20&map=no&sort_by=relevance_desc&hotel_name_filter=no'
-        }, {
-          title: '4 Seasons',
-          text: '4 Seasons description',
-          picture: './static/sf.jpg',
-          link: 'https://hotel.check24.de/Deutschland/M%C3%BCnchen-37463/Hotel%20Erzgiesserei%20Europe-9530088/2017-11-18/2017-11-19/%5BA%7CA%5D/hotel.html?reference_distance_max=20&map=no&sort_by=relevance_desc&hotel_name_filter=no'
-        }]
       }
     },
   }

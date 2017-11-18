@@ -1,16 +1,16 @@
 <template>
-  <a :href="hotel.link">
+  <a>
     <md-card>
       <md-card-media-cover md-solid>
         <md-card-media md-ratio="16:9">
-          <img :src="hotel.picture" :alt="hotel.title">
+          <img :src="hotel.image_url" :alt="hotel.title">
         </md-card-media>
 
         <md-card-area>
           <md-card-header>
-            <span class="md-title">{{hotel.title}}</span>
+            <span class="md-title">{{hotel.name}}</span>
             <br/>
-            <span class="md-subhead">{{hotel.text}}</span>
+            <span class="md-subhead">{{hotel.price}}</span>
           </md-card-header>
         </md-card-area>
       </md-card-media-cover>

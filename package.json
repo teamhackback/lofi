@@ -13,6 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "moment": "^2.19.2",
     "swing": "^3.1.1",
     "vue": "^2.5.2",
     "vue-material": "^0.8.1",

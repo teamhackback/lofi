@@ -29,6 +29,7 @@
 
   export default {
 
+
     components: {
       MdCardContent,
       MdCardMediaCover,

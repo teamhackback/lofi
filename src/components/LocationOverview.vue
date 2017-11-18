@@ -21,21 +21,7 @@
     name: 'HelloWorld',
     data () {
       return {
-        // TODO receive results from swiping instead of hardcoding
-
-        locationResults: [{
-          title: 'San Francisco',
-          text: 'West coast mah dude',
-          picture: './static/sf.jpg'
-        }, {
-          title: 'New York',
-          text: 'East coast represent',
-          picture: './static/ny.jpg'
-        }, {
-          title: 'Los Angeles',
-          text: 'City of Angels',
-          picture: './static/la.jpg'
-        }]
+        locationResults: this.$store.state.locations
       }
     }
   }
