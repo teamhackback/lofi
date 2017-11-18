@@ -12,8 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'StartupPage',
-      component: StartupPage
+      name: 'Swiping',
+      component: Swiping
     },
     {
       path: '/selection',
