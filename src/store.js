@@ -2,17 +2,59 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 const state = {
-  count: 0
+  cards: [
+    {
+      id: 0,
+      src: '/static/categories/beach.jpg',
+      seen: false
+    },
+    {
+      id: 1,
+      src: '/static/categories/snow.jpg',
+      seen: false
+    },
+    {
+      id: 2,
+      src: '/static/categories/culture.jpg',
+      seen: false
+    },
+    {
+      id: 3,
+      src: '/static/categories/urban.jpg',
+      seen: false
+    }
+  ]
 }
 const getters = {
-  evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
+  getCardById: state => id => state.cards.filter(card => card.id === id),
+  unseenCards: state => state.cards.filter(card => !card.seen),
+  unseenCardsReversed: (state, getters) => getters.unseenCards.slice().reverse(),
+  currentCard: (state, getters) => getters.unseenCards[0]
 }
 const mutations = {
-  increment (state) {
-    state.count++
+  pass (state, card) {
+    card.seen = true
+    card.rating = 'pass'
   },
-  decrement (state) {
-    state.count--
+  like (state, card) {
+    card.seen = true
+    card.rating = 'like'
+  },
+  superLike (state, card) {
+    card.seen = true
+    card.rating = 'superlike'
+  },
+  makePreviousCardUnseen (state) {
+    let lastCardPos = 0
+    for (; lastCardPos < state.cards.length; lastCardPos++) {
+      if (state.cards[lastCardPos].seen === false) {
+        break
+      }
+    }
+    if (lastCardPos > 0) {
+      lastCardPos--;
+    }
+    state.cards[lastCardPos].seen = false
   }
 }
 const actions = {
