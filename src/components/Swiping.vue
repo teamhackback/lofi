@@ -13,10 +13,10 @@
         <md-icon>close</md-icon>
       </div>
       <div id="like" @click="like">
-        <md-icon>thumb_up</md-icon>
+        <md-icon>favorites</md-icon>
       </div>
       <div id="superLike" @click="superLike">
-        <md-icon>favorite</md-icon>
+        <md-icon>star</md-icon>
       </div>
     </div>
   </div>
@@ -186,12 +186,17 @@ img {
   height: 50px;
   font-size: 50px!important;
 }
+#icons #back, #icons #superLike{
+  margin: -2%;
+}
+#icons #pass, #icons #like{
+}
 #icons div {
-  display: inline-block;
-  margin: 1%;
+  display: inline-flex;
+  margin: -1%;
   border-radius: 50%;
-  border: 6px solid #e7e7e7;
-  box-shadow: 0 0 10px rgba(0,0,0,.2), 1px 1px 1px rgba(0,0,0,.2);
+  border: 8px solid #e7e7e7;
   padding: 10px;
+  vertical-align: top;
 }
 </style>
