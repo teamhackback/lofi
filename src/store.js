@@ -2,7 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 const state = {
-  count: 0
+  count: 0,
+  cards: [
+    {
+      src: '/static/categories/beach.jpg'
+    },
+    {
+      src: '/static/categories/beach.jpg'
+    },
+    {
+      src: '/static/categories/beach.jpg'
+    }
+  ]
 }
 const getters = {
   evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
