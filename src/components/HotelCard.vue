@@ -1,21 +1,21 @@
 <template>
-  <div @click="pickLocation">
+  <a :href="hotel.link">
     <md-card>
       <md-card-media-cover md-solid>
         <md-card-media md-ratio="16:9">
-          <img :src="location.picture" :alt="location.title">
+          <img :src="hotel.picture" :alt="hotel.title">
         </md-card-media>
 
         <md-card-area>
           <md-card-header>
-            <span class="md-title">{{location.title}}</span>
+            <span class="md-title">{{hotel.title}}</span>
             <br/>
-            <span class="md-subhead">{{location.text}}</span>
+            <span class="md-subhead">{{hotel.text}}</span>
           </md-card-header>
         </md-card-area>
       </md-card-media-cover>
     </md-card>
-  </div>
+  </a>
 </template>
 <script>
   import Vue from 'vue'
@@ -34,16 +34,10 @@
       MdCardMediaCover,
       MdCardArea
     },
-    props: ['location'],
-    name: 'LocationCard',
+    props: ['hotel'],
+    name: 'HotelCard',
     data () {
       return {}
-    },
-    methods: {
-      pickLocation: function () {
-        // TODO push selection to state
-        this.$router.push('/results')
-      }
     }
 
   }

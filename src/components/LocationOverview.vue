@@ -1,5 +1,5 @@
 <template>
-  <div class="hello" id="locations">
+  <div id="locations">
     <location-card
       v-for="location in locationResults"
       v-bind:location="location"
@@ -21,6 +21,8 @@
     name: 'HelloWorld',
     data () {
       return {
+        // TODO receive results from swiping instead of hardcoding
+
         locationResults: [{
           title: 'San Francisco',
           text: 'West coast mah dude',
