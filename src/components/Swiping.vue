@@ -80,12 +80,22 @@ export default {
   },
   mounted () {
     // An instance of the Stack is used to attach event listeners.
+    this.$store.commit('resetAllCards');
     const Direction = Swing.Direction
     this.stack = Swing.Stack({
       allowedDirections: [Direction.LEFT, Direction.RIGHT, Direction.UP],
       minThrowOutDistance: 450,
       maxThrowOutDistance: 500,
-      maxRotation: 20
+      maxRotation: 20,
+      throwOutConfidence: (xOffset, yOffset, element) => {
+        const xConfidence = Math.min(Math.abs(xOffset) / element.offsetWidth, 1);
+        const yConfidence = Math.min(Math.abs(yOffset) / element.offsetHeight, 1);
+
+        const confidence = Math.max(xConfidence, yConfidence);
+        console.log(confidence);
+        if (confidence > 0.5)
+          return 1
+      }
     })
     // Add event listener for when a card is thrown out of the stack.
     this.stack.on('throwout', (e) => {
@@ -198,5 +208,9 @@ img {
   border: 8px solid #e7e7e7;
   padding: 10px;
   vertical-align: top;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
 }
 </style>
