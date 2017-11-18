@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import StartupPage from '@/components/HelloWorld'
-import Swiping from '@/components/Swiping'
-import LocationOverview from '@/components/LocationOverview'
-import HotelOverview from '@/components/HotelOverview'
+import StartupPage from '../components/StartupPage.vue'
+import Swiping from '../components/Swiping.vue'
+import LocationOverview from '../components/LocationOverview.vue'
+import HotelOverview from '../components/HotelOverview.vue'
 
 Vue.use(Router)
 
@@ -21,7 +21,7 @@ export default new Router({
       component: Swiping
     },
     {
-      path: '/locatios',
+      path: '/locations',
       name: 'LocationOverview',
       component: LocationOverview
     },
